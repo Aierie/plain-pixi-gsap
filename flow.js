@@ -4,7 +4,7 @@
 // applyTimeline: gsap.js
 // makeTable: table.js
 
-function flow(dataName, createElement, targets) {
+function flow(dataName, createElement, targets, setState) {
   const app = new PIXI.Application({
     view: document.querySelector(targets.view),
     width: 300,
@@ -19,13 +19,19 @@ function flow(dataName, createElement, targets) {
       ...deets[key],
       click: () => updateExplanation(deets[key].explanation)
     });
-    app.stage.addChild(elements[key]);
+    app.stage.addChild(elements[key].view);
   });
 
   const mainTimeline = gsap.timeline();
   const timelines = {};
   keys.forEach(key => {
-    timelines[key] = applyTimeline(locations, activity, key, elements[key]);
+    timelines[key] = applyTimeline(
+      locations,
+      activity,
+      key,
+      elements[key],
+      setState
+    );
     mainTimeline.add(timelines[key], 0);
   });
 

@@ -9,21 +9,11 @@
     <script src="data.js"></script>
     <script src="table.js"></script>
     <script src="flow.js"></script>
+    <script src="create.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function(){
         registerPixiPlugin()
         // basic - choreographed movement
-        // function addInteractiveCircle({ color, click }) {
-        //   const circleContainer = new PIXI.Graphics();
-        //   circleContainer.lineStyle(1, 0x000000);
-        //   circleContainer.beginFill(color);
-        //   circleContainer.drawCircle(0, 0, 15);
-        //   circleContainer.endFill();
-        //   circleContainer.interactive = true;
-        //   circleContainer.buttonMode = true;
-        //   circleContainer.on("click", click);
-        //   return circleContainer;
-        // }
         // flow("rb", addInteractiveCircle, {
         //   explanation: ".basic .explanation", 
         //   table:".basic .table-container",
@@ -32,28 +22,11 @@
 
         // state experiment
         // implementing conditional rendering - OO, or FP?
-        const textStates = {
-          1: "one",
-          2: "two",
-          3: "three",
-          4: "four",
-          5: "five"
-        }
-        function addText({color, click}){
-          const t = new PIXI.Text(textStates[1], {fill: color, });
-          t.interactive = true;
-          t.buttonMode = true;
-          t.on("click", click)
-          return t;
-        }
-        function updateText(element, text){
-          element.text = text;
-        }
         const {app, elements, timelines, mainTimelines} = flow("text", addText, {
           explanation: ".text .explanation", 
           table:".text .table-container",
           view: ".text .pixi-application"
-        });
+        }, _setTextState());
       })
     </script>
     <link rel="stylesheet" type="text/css" href="main.css"></link>
